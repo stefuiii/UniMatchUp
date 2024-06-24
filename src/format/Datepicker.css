@@ -1,0 +1,9 @@
+.custom-datepicker-wrapper {
+    width: 500px;
+  }
+.react-datepicker {
+    width: 343px; 
+}
+.react-datepicker__time-container {
+  width: 100px; 
+}
