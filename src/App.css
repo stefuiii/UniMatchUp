@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   color: black;
-  background-color: bisque;
+  background-color: white;
 }
 
 .auth-form-container, .login-form, .register-form {
@@ -17,14 +17,14 @@
   flex-direction: column;
   align-items: left;
   padding: 5rem;
-  border: 3px solid white;
-  background-color: bisque;
+  border: 3px solid gray;
   border-radius: 10px;
   width: 300px; /* 调整宽度为适当大小 */
   margin-left: auto;
   margin-right: auto;
   margin-top: 150px ;
   margin-bottom: 200px;
+  background-color: white;
 }
 
 lable {
@@ -49,7 +49,7 @@ input {
 
 .link-btn {
   margin-top: 10px;
-  background-color: bisque;
+  background-color: white;
   border-color: none;
   text-decoration: underline;
   border: 0cap;

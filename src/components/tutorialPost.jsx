@@ -32,7 +32,7 @@ export const AddTutPost = () => {
     const handleSubmit = async(e) => {
       e.preventDefault();
       try {
-        await addDoc(collection(database, "postInfo"), {
+        await addDoc(collection(database, "groupPost"), {
           Title: title,
           Description: description,
           Location: location,

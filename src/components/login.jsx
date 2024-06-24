@@ -8,7 +8,7 @@ import { Box,
          FormControl, 
          FormLabel, 
          Input, 
-         Button } from "@chakra-ui/react";
+         Button, Flex } from "@chakra-ui/react";
 
 
 export const Login = (props) => {
@@ -42,6 +42,15 @@ export const Login = (props) => {
     };
 
     return (
+        <Flex 
+          bg={"#FFEFDA"}
+          width='100vw'
+          height='100vh'
+          display="flex"
+          flexDirection="column"
+          justifyContent="center" 
+          alignItems="center"
+          alignContent="center">
         <Box className="auth-form-container" 
         p={10} 
         borderWidth={3} 
@@ -79,6 +88,7 @@ export const Login = (props) => {
           Don't have an account? Register here!
         </Button>
       </Box>
+      </Flex>
     );
 }
 
