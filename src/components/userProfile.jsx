@@ -63,9 +63,8 @@ export const CreateProfile = () => {
     <Heading size='md'>Show Your Profile to Your Buddies!</Heading>
   </CardHeader>
   <CardBody>
-    <HStack>
-    <Stack divider={<StackDivider />} spacing='2'>
-      <Box p={3}>
+    <Stack spacing='2'>
+      <Box>
         <Heading mb='8px' size='xs' textTransform='uppercase'>
           First Name
         </Heading>
@@ -111,19 +110,8 @@ export const CreateProfile = () => {
           <option value='option3'>Unknown</option>
         </Select>
       </Box>
-      <Box p={3}>
-        <Heading mb='8px' size='xs' textTransform='uppercase'>
-          Hobbies
-        </Heading>
-        <Select placeholder='Select option' color={'gray'}>
-          <option value='option1'>Male</option>
-          <option value='option2'>Female</option>
-          <option value='option3'>Unknown</option>
-        </Select>
-      </Box>
+      <Button mt={5}>Save Your Profile</Button>
     </Stack>
-    <img src={myAvatar} alt="Avatar" width="100" height="100" justifyContent={'top'}/>
-    </HStack>
   </CardBody>
 </Card>
     </Flex>

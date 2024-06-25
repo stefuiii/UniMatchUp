@@ -44,7 +44,8 @@ export const AddFoodPost = () => {
             Date: Timestamp.fromDate(date),
             Number: parseFloat(number),
             Menu: menu,
-            docID: ""
+            docID: "",
+            Joined: 0
           });
 
           const docInfo = docRef.id;

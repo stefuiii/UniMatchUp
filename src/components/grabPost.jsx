@@ -43,7 +43,8 @@ export const AddGrabPost = () => {
             Location: location,
             Date: Timestamp.fromDate(date),
             Number: parseFloat(number),
-            docID: ""
+            docID: "",
+            Joined: 0
           });
 
           const docInfo = docRef.id;

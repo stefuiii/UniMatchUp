@@ -38,7 +38,8 @@ export const AddSportPost = () => {
           Location: location,
           Date: Timestamp.fromDate(date),
           Number: parseFloat(number),
-          docID: ""
+          docID: "",
+          Joined: 0
         });
         const docInfo = docRef.id;
         await updateDoc(docRef, { docID: docInfo});
