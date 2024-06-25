@@ -16,6 +16,7 @@ import { ShowGroup } from './components/GroupPage';
 import { ChakraProvider } from '@chakra-ui/react';
 import { Landing } from './components/landing';
 import { CreateProfile } from './components/userProfile';
+import { Guide } from './components/guide';
 
 function App() {
   const [currentForm, setCurrentForm] = useState('landing');
@@ -42,6 +43,7 @@ function App() {
         <Route path="/showgroup" element={<ShowGroup />} />
         <Route path="/landing" element={<Landing />} />
         <Route path="/createprofile" element={<CreateProfile />} />
+        <Route path="/guide" element={<Guide />} />
       </Routes>
     </Router>
     </ChakraProvider>

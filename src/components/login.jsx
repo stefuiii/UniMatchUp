@@ -26,7 +26,7 @@ export const Login = (props) => {
           .then((userCredential) => {
             console.log(userCredential);
             alert('Login successfull!');
-            navigate('/home');
+            navigate('/guide');
           })
           .catch((error) => {
             console.log(error);

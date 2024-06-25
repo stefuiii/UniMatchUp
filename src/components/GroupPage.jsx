@@ -45,7 +45,7 @@ const ShowPosts = ({post}) => {
 
         const userProfileRef = doc(database, 'userProfile', user.uid);
         await updateDoc(userProfileRef, {
-          JointEvent: arrayUnion(docRef)
+          events: arrayUnion(docRef)
         });
 
 

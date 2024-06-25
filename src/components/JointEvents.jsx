@@ -65,9 +65,9 @@ export const ShowAllJoint = () => {
         if (profileDoc.exists()) {
           const profileData = profileDoc.data();
 
-          if (profileData.JointEvent) {
+          if (profileData.events) {
             const posts = [];
-            for (const eventRef of profileData.JointEvent) {
+            for (const eventRef of profileData.events) {
               const eventDoc = await getDoc(eventRef);
               if (eventDoc.exists()) {
                 posts.push(eventDoc.data());
