@@ -1,8 +1,7 @@
-import logo from './logo.svg';
 import './App.css';
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Switch, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Login } from "./components/login";
 import { Home } from "./components/Home"
 import { Register } from './components/Register';
@@ -16,7 +15,7 @@ import { ShowSport } from './components/SportPage';
 import { ShowGroup } from './components/GroupPage';
 import { ChakraProvider } from '@chakra-ui/react';
 import { Landing } from './components/landing';
-
+import { CreateProfile } from './components/userProfile';
 
 function App() {
   const [currentForm, setCurrentForm] = useState('landing');
@@ -42,6 +41,7 @@ function App() {
         <Route path="/showsport" element={<ShowSport />} />
         <Route path="/showgroup" element={<ShowGroup />} />
         <Route path="/landing" element={<Landing />} />
+        <Route path="/createprofile" element={<CreateProfile />} />
       </Routes>
     </Router>
     </ChakraProvider>

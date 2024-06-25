@@ -1,24 +1,77 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 //import "./Registration.css";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, database } from "../firebase-config.js";
-import { collection, addDoc, doc, setDoc, getDoc, getDocs, orderBy, query} from "firebase/firestore";
-import { getAuth, createUserWithEmailAndPassword} from "firebase/auth";
-import { Box, Heading, FormControl, FormLabel, Button, 
-         Stack, Text, Divider, ButtonGroup,
-         HStack, PostCard, 
+import { collection, doc, updateDoc, getDoc, getDocs, orderBy, query, arrayUnion} from "firebase/firestore";
+import { Box, Heading, Button, 
+         Stack, Text, ButtonGroup,
+         HStack, 
          InputGroup,
          InputLeftElement,
          ChakraProvider,
-         Input, Flex } from "@chakra-ui/react";
-import { CalendarIcon, InfoIcon, SearchIcon, PhoneIcon } from "@chakra-ui/icons";
-import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
+         Input, Flex, 
+         useControllableState} from "@chakra-ui/react";
+import { CalendarIcon, InfoIcon, SearchIcon } from "@chakra-ui/icons";
+import { Card, CardBody, CardFooter, useToast } from '@chakra-ui/react'
 import "../format/oneLineDescription.css"
 import postAvatar from "../icons/avatar13.svg"
 import grabHeading from "../icons/打车场景.svg"
 
 const ShowPosts = ({post}) => {
+    const [added, setAdded] = useState(post.Joined);
+    const user = auth.currentUser;
     const date = post.Date.toDate().toLocaleString();
+    const toast = useToast();
+
+    const handleAddedMember = async() => {
+      try {
+        const docRef = doc(database, 'postInfo', post.docID);
+        const docCollect = await getDoc(docRef);
+        const docData = docCollect.data();
+
+        if (user.uid == docData.uid){
+          toast({
+            title: "Join Failed",
+            description: "You cannot join your event ",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+          });
+
+        } else if(docData.Joined < post.Number) {
+          const newlyAdded = docData.Joined + 1;
+          setAdded(newlyAdded);
+          await updateDoc(docRef, {Joined: newlyAdded});
+
+          const userProfileRef = doc(database, 'userProfile', user.uid);
+          await updateDoc(userProfileRef, {
+            JointEvent: arrayUnion(docRef)
+          });
+
+
+          toast({
+            title: "Join Successful.",
+            description: "You have succesfully joined this event! ",
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+          });
+
+        } else {
+            console.log('The event is already full');
+            toast({
+              title: "Join Failed",
+              description: "The event is already full",
+              status: "error",
+              duration: 5000,
+              isClosable: true,
+            });
+        }
+      } catch (error) {
+          console.error('Fail to join', error);
+      }
+    }
+      
     return (
     <Card maxW='sm' width="300px" height="280px" justifyContent={'center'}>
       <CardBody>
@@ -43,8 +96,9 @@ const ShowPosts = ({post}) => {
       <CardFooter style={{ marginTop: '-20px' }}
         justifyContent={'left'} mt={'0'}>
         <ButtonGroup spacing='4' justifyContent={'flex-start'}>
-          <Button variant='solid' colorScheme='blue' fontSize="xs">
-            Join Us(1/6)
+          <Button onClick={handleAddedMember}
+            variant='solid' colorScheme='blue' fontSize="xs">
+            Join Us({added}/{post.Number})
           </Button>
           <Button variant='ghost' colorScheme='blue' fontSize="xs">
             View Event Details

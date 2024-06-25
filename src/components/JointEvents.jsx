@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { Component, useEffect, useState } from "react";
 //import "./Registration.css";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, database } from "../firebase-config.js";
-import { collection, getDocs, orderBy, query, where} from "firebase/firestore";
+import { collection, addDoc, doc, setDoc, getDoc, getDocs, orderBy, query, where} from "firebase/firestore";
+import { getAuth, createUserWithEmailAndPassword, useAuthState } from "firebase/auth";
 import { Box, Heading, FormControl, FormLabel, Button, 
          Stack, Text, Divider, ButtonGroup,
-         HStack,
+         HStack, PostCard, 
+         InputGroup,
+         InputLeftElement,
          ChakraProvider,
-         Input, Flex, Grid } from "@chakra-ui/react";
+         Input, Flex, 
+         useRadio, Grid } from "@chakra-ui/react";
 import { CalendarIcon, InfoIcon, SearchIcon, PhoneIcon } from "@chakra-ui/icons";
 import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
 import "../format/oneLineDescription.css"
@@ -44,33 +48,41 @@ const ShowPosts = ({post}) => {
     </Card>
     );
     
-
 }
 
-export const ShowAll = () => {
+export const ShowAllJoint = () => {
     const [posts, setPosts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [search] = useState('');
     const postsPerPage = 4;
     const user = auth.currentUser;
+    const uid = user.uid;
 
     useEffect (() => {
         const fetchPosts = async () => {
-            if (user) {
-              let allPosts = [];
-              const collections = ["postInfo", "foodPost", "sportPost", "groupPost"];
+        const profile = doc(database, 'userProfile', uid);
+        const profileDoc = await getDoc(profile);
+        if (profileDoc.exists()) {
+          const profileData = profileDoc.data();
 
-              for (const perCollect of collections) {
-                const postsCollection = query(collection(database, perCollect), 
-                where ("uid", "==", user.uid),
-                orderBy("Date", "asc"));
-                const querySnapshot = await getDocs(postsCollection);
-                const postsData = querySnapshot.docs.map(doc => doc.data());
-                allPosts = [...allPosts, ...postsData];
+          if (profileData.JointEvent) {
+            const posts = [];
+            for (const eventRef of profileData.JointEvent) {
+              const eventDoc = await getDoc(eventRef);
+              if (eventDoc.exists()) {
+                posts.push(eventDoc.data());
+              } else {
+                console.log('No such event document!');
               }
-              setPosts(allPosts);
             }
-        };
+            setPosts(posts);
+          } else {
+            console.log('No joined events found!');
+          }
+        } else {
+          console.log('No such user profile document!');
+        }
+        }
         fetchPosts();
     }, []);
 
@@ -101,7 +113,7 @@ export const ShowAll = () => {
             alignItems: 'center', 
             flexDirection: 'column'}}>
            <Grid templateColumns="repeat(2, 1fr)" gap={6} marginTop={5}>
-          {currentPosts.map((post, index) => (
+            {currentPosts.map((post, index) => (
             <ShowPosts key={index} post={post} />
           ))}
         </Grid>

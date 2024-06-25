@@ -1,5 +1,6 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Box, ChakraProvide, ChakraProvider, Flex, HStack, IconButton, Stack } from '@chakra-ui/react'
+import { collection, addDoc, doc, setDoc, getDoc, getDocs, orderBy, query, where} from "firebase/firestore";
 import {
   Drawer,
   Button,
@@ -28,21 +29,25 @@ import {
   PopoverAnchor,
 } from '@chakra-ui/react'
 import { ShowAll } from "./CreatedEvents"
+import { ShowAllJoint } from "./JointEvents"
 import { ChatIcon } from "@chakra-ui/icons";
 import { useNavigate } from 'react-router-dom';
 import headIcon from "../icons/工作.svg"
-import myAvatar from "../icons/avatar13.svg"
 import smalldeco from "../icons/页头箭头.svg"
 import grabIcon from "../icons/打车场景.svg"
 import foodIcon from "../icons/一起吃饭.svg"
 import sportIcon from "../icons/体育锻炼.svg"
 import groupIcon from "../icons/工作汇报.svg"
 import profile from "../icons/人员.svg"
+import { auth, database } from "../firebase-config"
 
 export const Home = () =>  {
   const [size, setSize] = React.useState('')
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const [nickName, setNickName] = useState('');
   const navigate = useNavigate();
+  const user = auth.currentUser;
+  const userID = user.uid;
 
   const handleClick = (newSize) => {
     setSize(newSize)
@@ -90,8 +95,31 @@ export const Home = () =>  {
   };
 
   const handleEditProfile = () => {
-    navigate('/showfood');
+    navigate('/createprofile');
   }
+
+  
+  useEffect(() => {
+    const getNickName = async () => {
+      try {
+        const userProfileRef = doc(database, 'userProfile', userID);
+        const userProfileDoc = await getDoc(userProfileRef);
+        if (userProfileDoc.exists()) {
+          const userProfileData = userProfileDoc.data();
+          setNickName(userProfileData.nickName);
+        } else {
+            console.log('No such user profile document!');
+        }
+      } catch (error) {
+          console.error('Error getting user profile:', error);
+      }
+    };
+  
+    if (userID) {
+      getNickName();
+    }
+    }, [userID]);
+  
 
   return (
     <ChakraProvider>
@@ -299,7 +327,7 @@ export const Home = () =>  {
           <HStack spacing={0}>
           <DrawerHeader mt={7} width="100"
           whiteSpace="nowrap" textOverflow="ellipsis">
-            {`Hello stefuiii!`}
+            Hello {nickName}
             </DrawerHeader>
           <Button mt={7} onClick={handleEditProfile} colorScheme="teal" fontSize="sm" variant="link">
           Edit your profile
@@ -317,7 +345,7 @@ export const Home = () =>  {
       <p><ShowAll /></p>
     </TabPanel>
     <TabPanel>
-      <p>This page is for joint session</p>
+      <p><ShowAllJoint /></p>
     </TabPanel>
   </TabPanels>
 </Tabs>

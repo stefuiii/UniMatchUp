@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { doc, setDoc, addDoc, collection, Timestamp} from 'firebase/firestore';
+import { doc, setDoc, addDoc, collection, Timestamp, updateDoc} from 'firebase/firestore';
 import { Box, 
          Text,
          Button, 
@@ -36,14 +36,19 @@ export const AddGrabPost = () => {
       if (user) {
         const uid = user.uid;
         try {
-          await addDoc(collection(database, "postInfo"), {
+          const docRef = await addDoc(collection(database, "postInfo"), {
             uid: uid,
             Title: title,
             Description: description,
             Location: location,
             Date: Timestamp.fromDate(date),
-            Number: parseFloat(number)
+            Number: parseFloat(number),
+            docID: ""
           });
+
+          const docInfo = docRef.id;
+          await updateDoc(docRef, { docID: docInfo});
+
           console.log("Document successfully written!");
           
           toast({

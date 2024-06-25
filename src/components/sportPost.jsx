@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { doc, setDoc, addDoc, collection, Timestamp} from 'firebase/firestore';
+import { doc, setDoc, addDoc, collection, Timestamp, updateDoc} from 'firebase/firestore';
 import { Box, 
          Text,
          Button, 
@@ -32,13 +32,16 @@ export const AddSportPost = () => {
     const handleSubmit = async(e) => {
       e.preventDefault();
       try {
-        await addDoc(collection(database, "sportPost"), {
+        const docRef = await addDoc(collection(database, "sportPost"), {
           Title: title,
           Description: description,
           Location: location,
           Date: Timestamp.fromDate(date),
           Number: parseFloat(number),
+          docID: ""
         });
+        const docInfo = docRef.id;
+        await updateDoc(docRef, { docID: docInfo});
         console.log("Document successfully written!");
         
         toast({
