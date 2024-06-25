@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react"
-import { Box, ChakraProvide, ChakraProvider, Flex, HStack, IconButton, Stack } from '@chakra-ui/react'
-import { collection, addDoc, doc, setDoc, getDoc, getDocs, orderBy, query, where} from "firebase/firestore";
+import { Box, ChakraProvider, Flex, HStack, Stack } from '@chakra-ui/react'
+import { doc, getDoc} from "firebase/firestore";
 import {
   Drawer,
   Button,
   DrawerBody,
-  DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
@@ -15,18 +14,15 @@ import {
   Tab, TabPanel, TabPanels, TabList,
   Heading, Highlight,
   Divider, AbsoluteCenter, Text, ButtonGroup,
-  Card, CardBody, CardFooter, Image, Portal
+  Card, CardBody, Portal
 } from '@chakra-ui/react'
 import {
   Popover,
   PopoverTrigger,
   PopoverContent,
-  PopoverHeader,
   PopoverBody,
-  PopoverFooter,
   PopoverArrow,
   PopoverCloseButton,
-  PopoverAnchor,
 } from '@chakra-ui/react'
 import { ShowAll } from "./CreatedEvents"
 import { ShowAllJoint } from "./JointEvents"

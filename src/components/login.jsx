@@ -1,8 +1,6 @@
 import React, { useState } from "react"
 import { useNavigate } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { auth } from "../firebase-config";
 import { Box, 
          Heading, 
          FormControl, 
@@ -15,7 +13,6 @@ export const Login = (props) => {
     const auth = getAuth();
     const [email, setEmail] = useState('');
     const [password, setPass] = useState('');
-    const [error, setError] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
@@ -30,7 +27,6 @@ export const Login = (props) => {
           })
           .catch((error) => {
             console.log(error);
-            setError(true);
             alert('Login failed. Please try again.');
           });
     };

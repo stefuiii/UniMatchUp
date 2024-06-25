@@ -1,13 +1,6 @@
-import React, { useState } from "react"
-import { Box, ButtonGroup, ChakraProvide, ChakraProvider, Flex, HStack, Text, Stack } from '@chakra-ui/react'
-import {
-  Button,
-  useDisclosure,
-  Heading, Highlight,
-  Checkbox, Tooltip
-} from '@chakra-ui/react'
-import { ShowAll } from "./CreatedEvents"
-import { ChatIcon } from "@chakra-ui/icons";
+import React from "react"
+import { Box, ButtonGroup, ChakraProvider, Flex, HStack, Text, Stack } from '@chakra-ui/react'
+import { Button, Heading, Highlight } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom';
 import headIcon from "../icons/工作.svg"
 import smalldeco from "../icons/页头箭头.svg"
@@ -69,7 +62,7 @@ export const Guide = () =>  {
           <Button variant='ghost' colorScheme='blue'
           onClick={handleHome} bg={'white'} borderRadius={'10'}>I've been your buddy</Button>
         </ButtonGroup>
-        <Box width={450}>
+        <Box width={450} textDecoration="underline">
         <Text color={'gray'}>
             If you are a new user, you must click "I'm a new user" button to create your profile first.
         </Text>

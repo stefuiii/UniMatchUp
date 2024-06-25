@@ -1,18 +1,12 @@
 import React, { useEffect, useState } from "react";
 //import "./Registration.css";
-import { Link, useNavigate } from "react-router-dom";
 import { auth, database } from "../firebase-config.js";
 import { collection, getDocs, orderBy, query, where} from "firebase/firestore";
-import { Box, Heading, FormControl, FormLabel, Button, 
-         Stack, Text, Divider, ButtonGroup,
-         HStack,
-         ChakraProvider,
-         Input, Flex, Grid } from "@chakra-ui/react";
-import { CalendarIcon, InfoIcon, SearchIcon, PhoneIcon } from "@chakra-ui/icons";
-import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
+import { Box, Heading, Button, Stack, Text, ButtonGroup,
+         HStack, ChakraProvider, Grid } from "@chakra-ui/react";
+import { CalendarIcon, InfoIcon } from "@chakra-ui/icons";
+import { Card, CardBody, CardFooter } from '@chakra-ui/react'
 import "../format/oneLineDescription.css"
-import postAvatar from "../icons/avatar13.svg"
-import grabHeading from "../icons/打车场景.svg"
 
 const ShowPosts = ({post}) => {
     const date = post.Date.toDate().toLocaleString();

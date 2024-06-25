@@ -1,19 +1,13 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 //import "./Registration.css";
-import { Link, useNavigate } from "react-router-dom";
 import { auth, database } from "../firebase-config.js";
-import { collection, addDoc, doc, updateDoc, getDoc, getDocs, orderBy, query, arrayUnion} from "firebase/firestore";
-import { getAuth, createUserWithEmailAndPassword} from "firebase/auth";
-import { Box, Heading, FormControl, FormLabel, Button, 
-         Stack, Text, Divider, ButtonGroup,
-         HStack, PostCard, 
-         InputGroup,
-         InputLeftElement,
-         ChakraProvider,
-         Input,
+import { collection, doc, updateDoc, getDoc, getDocs, orderBy, query, arrayUnion} from "firebase/firestore";
+import { Box, Heading, Button, Stack, Text, ButtonGroup,
+         HStack, InputGroup, InputLeftElement,
+         ChakraProvider, Input,
          Flex, useToast} from "@chakra-ui/react";
-import { CalendarIcon, InfoIcon, SearchIcon, PhoneIcon } from "@chakra-ui/icons";
-import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
+import { CalendarIcon, InfoIcon, SearchIcon } from "@chakra-ui/icons";
+import { Card, CardBody, CardFooter } from '@chakra-ui/react'
 import "../format/oneLineDescription.css"
 import postAvatar from "../icons/avatar13.svg"
 import foodHeading from "../icons/一起吃饭.svg"
@@ -30,7 +24,7 @@ const ShowPosts = ({post}) => {
       const docCollect = await getDoc(docRef);
       const docData = docCollect.data();
 
-      if (user.uid == docData.uid){
+      if (user.uid === docData.uid){
         toast({
           title: "Join Failed",
           description: "You cannot join your event ",

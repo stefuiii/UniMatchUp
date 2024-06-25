@@ -1,19 +1,10 @@
 import React, { useState } from "react"
 import { useNavigate } from 'react-router-dom';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth, database} from "../firebase-config";
 import { doc, setDoc, getDoc, updateDoc} from 'firebase/firestore';
-import { Box, 
-         Heading, 
-         FormControl, 
-         FormLabel, 
-         Input, 
-         Button,
-         Card, CardHeader, CardBody, CardFooter, Divider, Stack, Text, Flex, StackDivider,
-         Select, 
-         HStack,
-         useToast } from "@chakra-ui/react";
+import { Box, Heading, FormControl, FormLabel, 
+         Input, Button, Card, CardHeader, CardBody, Stack, Flex,
+         Select, HStack, useToast } from "@chakra-ui/react";
 import myAvatar from "../icons/avatar13.svg"
 
 export const CreateProfile = () => {
