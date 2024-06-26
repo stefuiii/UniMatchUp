@@ -70,8 +70,8 @@ export const CreateProfile = () => {
             });
 
             toast({
-              title: "Profile Created.",
-              description: "Your profile has been successfully created.",
+              title: "Profile Updated.",
+              description: "Your profile has been successfully updated",
               status: "success",
               duration: 2000,
               isClosable: true,

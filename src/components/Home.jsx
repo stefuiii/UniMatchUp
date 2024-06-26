@@ -333,7 +333,7 @@ export const Home = () =>  {
           <Tabs variant='soft-rounded' colorScheme='green'>
   <TabList>
     <Tab>Created</Tab>
-    <Tab>Joint</Tab>
+    <Tab>Joined</Tab>
     <Tab></Tab>
   </TabList>
   <TabPanels>
