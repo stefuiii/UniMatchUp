@@ -95,8 +95,9 @@ const ShowPosts = ({post}) => {
       <CardFooter style={{ marginTop: '-20px' }}
         justifyContent={'left'} mt={'0'}>
         <ButtonGroup spacing='4' justifyContent={'flex-start'}>
-          <Button variant='solid' colorScheme='blue' fontSize="xs">
-            Join Us(1/6)
+          <Button onClick={handleAddedMember}
+          variant='solid' colorScheme='blue' fontSize="xs">
+            Join Us({added}/{post.Number})
           </Button>
           <Button variant='ghost' colorScheme='blue' fontSize="xs">
             View Event Details
@@ -105,8 +106,6 @@ const ShowPosts = ({post}) => {
       </CardFooter>
     </Card>
     );
-    
-
 }
 
 export const ShowGroup = () => {
